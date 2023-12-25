@@ -3,13 +3,16 @@ import axios from 'axios';
 import CountryTable from './components/CountryTable';
 import Filter from './components/Filter';
 import SortBy from './components/SortBy';
+import RegionSelection from './components/RegionSelection';
 
 export default function App() {
   const [countries, setCountries] = useState([]);
+  const [selectedRegions, setSelectedRegions] = useState([]);
   const [filterQuery, setFilterQuery] = useState('');
   const [sortBy, setSortBy] = useState('');
 
-  const countriesToShow = countries
+  let countriesToShow = countries
+    .filter(country => selectedRegions.length === 0 || selectedRegions.includes(country.region))
     .filter(country => {
       const { common } = country.name;
       const { region, subregion } = country;
@@ -25,7 +28,6 @@ export default function App() {
       if (sortBy === 'area') return b.area - a.area;
     });
 
-
   useEffect(() => {
     axios
       .get('https://restcountries.com/v3.1/all')
@@ -38,9 +40,14 @@ export default function App() {
       <div className="grid-cols-12">
         <aside>
           <SortBy sortBy={sortBy} setSortBy={setSortBy} />
+          <RegionSelection
+            selectedRegions={selectedRegions}
+            setSelectedRegions={setSelectedRegions} />
         </aside>
       </div>
-      <Filter filterQuery={filterQuery}  setFilterQuery={setFilterQuery} />
+      <Filter
+        filterQuery={filterQuery}
+        setFilterQuery={setFilterQuery} />
       <CountryTable countries={countriesToShow} />
     </>
   )
