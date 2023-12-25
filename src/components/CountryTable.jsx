@@ -2,14 +2,14 @@ import CountryRow from './CountryRow';
 
 export default function CountryTable({ countries }) {
   return (
-    <table className="border-collapse w-full">
-      <thead className="border-b-2">
-        <tr>
-          <th className="text-start">Flag</th>
-          <th className="text-start">Name</th>
-          <th className="text-start">Population</th>
-          <th className="text-start">Area (km<sup>2</sup>)</th>
-          <th className="text-start">Region</th>
+    <table className="w-full">
+      <thead className="border-1 border-b border-b-input">
+        <tr className="text-slate-gray">
+          <th className="text-start font-bold text-xs py-4">Flag</th>
+          <th className="text-start font-bold text-xs">Name</th>
+          <th className="text-start font-bold text-xs">Population</th>
+          <th className="text-start font-bold text-xs">Area (km<sup>2</sup>)</th>
+          <th className="text-start font-bold text-xs">Region</th>
         </tr>
       </thead>
       <tbody>

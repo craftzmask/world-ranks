@@ -4,7 +4,7 @@ import CountryTable from './components/CountryTable';
 import Filter from './components/Filter';
 import SortBy from './components/SortBy';
 import RegionSelection from './components/RegionSelection';
-import CheckBox from './components/CheckBox';
+import StatusSelection from './components/StatusSelection';
 
 export default function App() {
   const [countries, setCountries] = useState([]);
@@ -29,7 +29,7 @@ export default function App() {
     })
     .sort((a, b) => {
       if (!sortBy || sortBy === 'population') return b.population - a.population;
-      if (sortBy === 'name') return b.name.common - a.name.common;
+      if (sortBy === 'name') return a.name.common.toLowerCase().localeCompare(b.name.common.toLowerCase());
       if (sortBy === 'area') return b.area - a.area;
     });
 
@@ -39,30 +39,29 @@ export default function App() {
       .then(res => setCountries(res.data))
       .catch(error => console.error(error));
   }, []);
-  
+
   return (
-    <>
-      <div className="grid-cols-12">
-        <aside>
-          <p>Found {countriesToShow.length} countries</p>
+    <div className=" bg-container bg-contain bg-top bg-no-repeat h-screen bg-hero-img px-10">
+      <div className="relative h-[78%] rounded-xl overflow-hidden top-60 grid grid-cols-12 px-8 py-6 border-2 border-input bg-container text-silver">
+        <aside className="col-span-3 pr-9">
+          <p className="mt-3 text-slate-gray font-semibold">Found {countriesToShow.length} countries</p>
           <SortBy sortBy={sortBy} setSortBy={setSortBy} />
           <RegionSelection
             selectedRegions={selectedRegions}
             setSelectedRegions={setSelectedRegions} />
-          <CheckBox
-            isChecked={isUnitedNationMember}
-            checkHandler={() => setIsUnitedNationMember(!isUnitedNationMember)}
-            label="Member of the United Nations" />
-          <CheckBox
-            isChecked={isIndependent}
-            checkHandler={() => setIsIndependent(!isIndependent)}
-            label="Independent" />
+          <StatusSelection
+            isUnitedNationMember={isUnitedNationMember}
+            setIsUnitedNationMember={setIsUnitedNationMember}
+            isIndependent={isIndependent}
+            setIsIndependent={setIsIndependent} />
         </aside>
+        <main className="flex flex-col col-span-9">
+          <Filter
+            filterQuery={filterQuery}
+            setFilterQuery={setFilterQuery} />
+          <CountryTable countries={countriesToShow} />
+        </main>
       </div>
-      <Filter
-        filterQuery={filterQuery}
-        setFilterQuery={setFilterQuery} />
-      <CountryTable countries={countriesToShow} />
-    </>
+    </div>
   )
 }

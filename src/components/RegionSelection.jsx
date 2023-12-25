@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
 export default function RegionSelection({ selectedRegions, setSelectedRegions }) {
-  const regions = ['Oceania', 'Africa', 'Europe', 'Asia', 'Americas', 'Antarctic'];
+  const regions = ['Americas', 'Antarctic', 'Africa', 'Asia', 'Europe', 'Oceania'];
 
   const handleClick = region => {
     // Toggle a unselected/selected region
@@ -13,17 +13,20 @@ export default function RegionSelection({ selectedRegions, setSelectedRegions })
   }
 
   return (
-    <div>
+    <div className="mt-8">
+      <p className="block text-xs text-slate-gray font-semibold mb-2">Region</p>
+      <div className="flex flex-wrap gap-3 text-slate-gray">
       {
         regions.map(region => <div
           key={region}
           className={clsx({
-            "hover:cursor-pointer hover:bg-slate-400": true,
-            "bg-slate-400": selectedRegions.includes(region)
+            "text-sm px-3 py-2 rounded-xl hover:cursor-pointer hover:bg-input hover:text-silver": true,
+            "bg-input text-silver": selectedRegions.includes(region)
           })}
           onClick={() => handleClick(region)}>{region}
         </div>)
       }
+    </div>
     </div>
   );
 }
