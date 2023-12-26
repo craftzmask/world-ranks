@@ -2,7 +2,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
 export default function Filter({ filterQuery, setFilterQuery }) {
   return (
-    <div className="flex self-end gap-x-3 px-3 py-3 bg-input rounded-xl w-[370px] mb-6">
+    <div className="flex self-end gap-x-3 px-3 py-3 bg-input rounded-xl w-[370px]">
       <MagnifyingGlassIcon className="h-6 w-6 text-slate-gray" />
       <input
         className="bg-input border-none outline-none w-full text-sm"

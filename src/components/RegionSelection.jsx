@@ -13,9 +13,9 @@ export default function RegionSelection({ selectedRegions, setSelectedRegions })
   }
 
   return (
-    <div className="mt-8">
+    <div className="mt-9">
       <p className="block text-xs text-slate-gray font-semibold mb-2">Region</p>
-      <div className="flex flex-wrap gap-3 text-slate-gray">
+      <div className="flex flex-wrap gap-2 text-slate-gray">
       {
         regions.map(region => <div
           key={region}

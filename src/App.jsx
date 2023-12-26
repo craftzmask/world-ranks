@@ -14,7 +14,7 @@ export default function App() {
   const [filterQuery, setFilterQuery] = useState('');
   const [sortBy, setSortBy] = useState('');
 
-  let countriesToShow = countries
+  const countriesToShow = countries
     .filter(country => isUnitedNationMember ? country.unMember : true)
     .filter(country => isIndependent ? country.independent : true)
     .filter(country => selectedRegions.length === 0 || selectedRegions.includes(country.region))
@@ -41,26 +41,33 @@ export default function App() {
   }, []);
 
   return (
-    <div className=" bg-container bg-contain bg-top bg-no-repeat h-screen bg-hero-img px-10">
-      <div className="relative h-[78%] rounded-xl overflow-hidden top-60 grid grid-cols-12 px-8 py-6 border-2 border-input bg-container text-silver">
-        <aside className="col-span-3 pr-9">
-          <p className="mt-3 text-slate-gray font-semibold">Found {countriesToShow.length} countries</p>
-          <SortBy sortBy={sortBy} setSortBy={setSortBy} />
-          <RegionSelection
-            selectedRegions={selectedRegions}
-            setSelectedRegions={setSelectedRegions} />
-          <StatusSelection
-            isUnitedNationMember={isUnitedNationMember}
-            setIsUnitedNationMember={setIsUnitedNationMember}
-            isIndependent={isIndependent}
-            setIsIndependent={setIsIndependent} />
-        </aside>
-        <main className="flex flex-col col-span-9">
+    <div className="bg-container lg:bg-contain bg-top bg-no-repeat h-screen bg-hero-img md:px-6 xl:px-10 overflow-hidden">
+      <div className="flex justify-center h-1/5">
+        <img className="mt-6" src="src/assets/Logo.svg" width="174" height="24" alt="Logo" />
+      </div>
+      <div className="bg-container text-silver px-8 py-6 rounded-xl h-[75%] overflow-hidden border border-t border-input">
+        <div className="flex justify-between items-center mb-6">
+          <p className="text-slate-gray font-semibold">Found {countriesToShow.length} countries</p>
           <Filter
-            filterQuery={filterQuery}
-            setFilterQuery={setFilterQuery} />
-          <CountryTable countries={countriesToShow} />
-        </main>
+              filterQuery={filterQuery}
+              setFilterQuery={setFilterQuery} />
+        </div>
+        <div className="md:grid grid-cols-12">
+          <aside className="col-span-3 pr-8">
+            <SortBy sortBy={sortBy} setSortBy={setSortBy} />
+            <RegionSelection
+              selectedRegions={selectedRegions}
+              setSelectedRegions={setSelectedRegions} />
+            <StatusSelection
+              isUnitedNationMember={isUnitedNationMember}
+              setIsUnitedNationMember={setIsUnitedNationMember}
+              isIndependent={isIndependent}
+              setIsIndependent={setIsIndependent} />
+          </aside>
+          <main className="flex flex-col col-span-9">
+            <CountryTable countries={countriesToShow} />
+          </main>
+        </div>
       </div>
     </div>
   )

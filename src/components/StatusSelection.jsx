@@ -8,7 +8,7 @@ export default function StatusSelection({
 }) {
 
   return (
-    <div className="mt-7">
+    <div className="mt-9 mb-6">
       <p className="block text-xs text-slate-gray font-semibold mb-2">Status</p>
       <div>
         <CheckBox
