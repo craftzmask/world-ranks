@@ -1,7 +1,22 @@
-export default function CountryDetail({ country }) {
-  if (!country) {
-    return null;
-  }
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams, Link } from "react-router-dom";
+import { useCountries } from '../context/CountryContext';
+
+export default function CountryPage() {
+  const countries = useCountries();
+  const [country, setCountry] = useState(null);
+  const { name } = useParams();
+
+  useEffect(() => {
+    axios
+      .get(`https://restcountries.com/v3.1/name/${name}?fullText=true `)
+      .then(res => setCountry(res.data[0]))
+      .catch(error => console.error(error));
+  }, [name]);
+
+  if (!country) return null;
+
   return (
     <div className="mx-auto text-center bg-container text-silver pb-6 md:rounded-xl h-fit w-full lg:w-3/5 overflow-visible border border-t border-input">
       <div>
@@ -49,8 +64,21 @@ export default function CountryDetail({ country }) {
       </div>
 
       <div className="px-4 py-7">
-        <p className="text-start text-sm text-slate-gray">Neighbouring Countries</p>
-        <div></div>
+        <p className="text-start text-sm text-slate-gray mb-6">Neighbouring Countries</p>
+        <div className="flex items-center flex-wrap gap-4">
+          {countries.map(c => {
+            if (country.borders.includes(c.cca3)) {
+              return (
+                <Link key={c.name.official} to={`/countries/${c.name.official}`}>
+                  <div className="flex flex-col items-center justify-center text-xs">
+                    <img className="rounded mb-2" src={c.flags.png} width="80" alt={`${c.name.common}'s flag`} />
+                    <p>{c.name.common}</p>
+                  </div>
+                </Link>
+              )
+            }
+          })}
+        </div>
       </div>
     </div>
   );

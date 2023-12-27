@@ -1,12 +1,10 @@
-import { useState } from 'react';
-
 export default function SortBy({ sortBy, setSortBy }) {
   const handleChange = e => {
     setSortBy(e.target.value);
   }
 
   return (
-    <div className="mt-3">
+    <div className="mt-8 lg:mt-3">
       <label className="block text-xs text-slate-gray font-semibold mb-2" htmlFor="sort-by">Sort by</label>
       <div className="pl-1 pr-4 border-2 border-input rounded-xl">
         <select
