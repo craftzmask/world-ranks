@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from "react-router-dom";
 import { useCountries } from '../context/CountryContext';
+import { numberFormat } from '../utils/numberFormat';
 
 export default function CountryPage() {
   const countries = useCountries();
@@ -30,12 +31,12 @@ export default function CountryPage() {
           <div className="flex items-center py-2 bg-input rounded-xl">
             <span className="text-sm px-6 py-2">Population</span>
             <div className="border-l w-1 h-full border-container"></div>
-            <span className="text-sm px-6 py-2">{country.population}</span>
+            <span className="text-sm px-6 py-2">{numberFormat(country.population)}</span>
           </div>
           <div className="flex items-center py-2 bg-input rounded-xl">
             <span className="text-sm px-6 py-2">Area (km <sup>2</sup>)</span>
             <div className="border-l h-full border-container"></div>
-            <span className="text-sm px-6 py-2">{country.area}</span>
+            <span className="text-sm px-6 py-2">{numberFormat(country.area)}</span>
           </div>
         </div>
       </div>

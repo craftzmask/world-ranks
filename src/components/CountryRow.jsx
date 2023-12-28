@@ -1,14 +1,11 @@
 import { useNavigate } from 'react-router-dom';
+import { numberFormat } from '../utils/numberFormat';
 
 export default function CountryRow({ country }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate(`/countries/${country.name.official}`)
-  }
-
-  const numberFormat = number => {
-    return `${number}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
   return (
